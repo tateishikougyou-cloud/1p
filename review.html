@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人工芝施工アンケート</title>
+
+<style>
+body{
+ font-family:sans-serif;
+ background:#f3f8f1;
+ padding:20px;
+ margin:0;
+}
+.container{
+ max-width:540px;
+ margin:auto;
+ background:white;
+ padding:24px;
+ border-radius:18px;
+ box-shadow:0 4px 18px rgba(0,0,0,0.1);
+}
+h1{
+ text-align:center;
+ color:#2f7d32;
+}
+.question{
+ margin:22px 0;
+}
+select,textarea{
+ width:100%;
+ padding:13px;
+ border-radius:10px;
+ border:1px solid #ccc;
+ font-size:16px;
+ box-sizing:border-box;
+}
+.stars{
+ display:flex;
+ justify-content:center;
+ gap:8px;
+ font-size:38px;
+}
+.star{
+ color:#ccc;
+ cursor:pointer;
+}
+.star.active{
+ color:#ffc107;
+}
+button{
+ width:100%;
+ padding:15px;
+ border:none;
+ border-radius:12px;
+ background:#2f7d32;
+ color:white;
+ font-size:17px;
+ font-weight:bold;
+ margin-top:18px;
+ cursor:pointer;
+}
+.note{
+ line-height:1.8;
+}
+.hidden{
+ display:none;
+}
+.small{
+ font-size:14px;
+ color:#555;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="surveyBox">
+ <h1>人工芝施工アンケート</h1>
+
+ <p>
+   この度は施工をご依頼いただき誠にありがとうございました。<br>
+   今後のサービス向上のためアンケートにご協力ください。
+ </p>
+
+ <div class="question">
+   <p>① 施工前の説明はわかりやすかったですか？</p>
+   <select id="q1">
+     <option>とても良かった</option>
+     <option>良かった</option>
+     <option>普通</option>
+     <option>少し不満</option>
+     <option>不満</option>
+   </select>
+ </div>
+
+ <div class="question">
+   <p>② スタッフ・職人の対応はいかがでしたか？</p>
+   <select id="q2">
+     <option>とても良かった</option>
+     <option>良かった</option>
+     <option>普通</option>
+     <option>少し不満</option>
+     <option>不満</option>
+   </select>
+ </div>
+
+ <div class="question">
+   <p>③ 仕上がりの満足度はいかがですか？</p>
+   <select id="q3">
+     <option>とても満足</option>
+     <option>満足</option>
+     <option>普通</option>
+     <option>少し不満</option>
+     <option>不満</option>
+   </select>
+ </div>
+
+ <div class="question">
+   <p>④ 工事中の清掃・片付けはいかがでしたか？</p>
+   <select id="q4">
+     <option>とても良かった</option>
+     <option>良かった</option>
+     <option>普通</option>
+     <option>少し不満</option>
+     <option>不満</option>
+   </select>
+ </div>
+
+ <div class="question">
+   <p>⑤ ご家族・知人に紹介したいと思いますか？</p>
+   <select id="q5">
+     <option>ぜひ紹介したい</option>
+     <option>紹介したい</option>
+     <option>どちらとも言えない</option>
+     <option>あまり思わない</option>
+     <option>思わない</option>
+   </select>
+ </div>
+
+ <div class="question">
+   <p>今回の施工を星1〜5で評価してください。</p>
+   <div class="stars">
+     <span class="star" data-value="1">★</span>
+     <span class="star" data-value="2">★</span>
+     <span class="star" data-value="3">★</span>
+     <span class="star" data-value="4">★</span>
+     <span class="star" data-value="5">★</span>
+   </div>
+ </div>
+
+ <div id="messageBox" class="hidden">
+   <p><strong>最後に弊社へのメッセージを頂ければ幸いです‼︎<br>励みになります‼︎</strong></p>
+   <textarea id="message" maxlength="100" rows="5" placeholder="100文字以内でご入力ください"></textarea>
+   <p class="small">※ご入力いただいた文章は、口コミ投稿時にコピーしてご利用いただけます。</p>
+ </div>
+
+ <button onclick="submitSurvey()">送信する</button>
+</div>
+
+<div class="container hidden" id="lowBox">
+ <h1>ありがとうございました</h1>
+
+ <p class="note">
+   アンケートのご回答ありがとうございました。<br>
+   頂いたご意見は真摯に受け止め、今後の改善に活かしてまいります。
+ </p>
+
+ <p class="note">
+   もしよろしければ、Google口コミへのご投稿もお願い致します。
+ </p>
+
+ <button onclick="goGoogle()">Google口コミを投稿する</button>
+</div>
+
+<div class="container hidden" id="googleBox">
+ <h1>Google口コミの応援お願い致します</h1>
+
+ <p class="note">
+   この度は、人工芝施工を弊社にお任せいただき誠にありがとうございました。<br><br>
+   お客様のお庭やスペースが、これからご家族の憩いの場所、ワンちゃんの遊び場、毎日を気持ちよく過ごせる場所になれば、私たちにとって何より嬉しいことです。<br><br>
+   小さな会社ではありますが、一件一件を大切に、親切・丁寧な施工を心がけております。<br><br>
+   もしよろしければ、今後のお客様の参考になるよう、Google口コミで応援いただけますと大変励みになります。
+ </p>
+
+ <p><strong>こちらのボタンを押すと先程入力した文章内容がコピーされます。</strong></p>
+
+ <button onclick="copyAndGo()">コピーして口コミを投稿する</button>
+
+ <p class="note">
+   Googleアカウントページの口コミ投稿ページに移動します。<br>
+   投稿内容をペーストしてご利用ください。
+ </p>
+</div>
+
+<script>
+const GAS_URL = "https://script.google.com/macros/s/AKfycbzvsNlsRTAdnfeq5aXQShlbFtC3mm-TgwIKtn4bUmzxmaa2_Ap-33U2mk-4KE4xeYc6/exec";
+
+/* 店舗登録後、ここにGoogle口コミ投稿URLを入れる */
+const GOOGLE_REVIEW_URL = "ここにGoogle口コミURLを入れる";
+
+let selectedRating = 0;
+
+document.querySelectorAll(".star").forEach(star=>{
+ star.addEventListener("click",function(){
+   selectedRating = Number(this.dataset.value);
+
+   document.querySelectorAll(".star").forEach(s=>{
+     s.classList.remove("active");
+     if(Number(s.dataset.value)<=selectedRating){
+       s.classList.add("active");
+     }
+   });
+
+   if(selectedRating>=3){
+     document.getElementById("messageBox").classList.remove("hidden");
+   }else{
+     document.getElementById("messageBox").classList.add("hidden");
+     document.getElementById("message").value = "";
+   }
+ });
+});
+
+function submitSurvey(){
+ if(selectedRating===0){
+   alert("星評価を選択してください");
+   return;
+ }
+
+ const data = {
+   q1:document.getElementById("q1").value,
+   q2:document.getElementById("q2").value,
+   q3:document.getElementById("q3").value,
+   q4:document.getElementById("q4").value,
+   q5:document.getElementById("q5").value,
+   rating:selectedRating,
+   message:document.getElementById("message").value
+ };
+
+ fetch(GAS_URL,{
+   method:"POST",
+   body:JSON.stringify(data)
+ });
+
+ document.getElementById("surveyBox").classList.add("hidden");
+
+ if(selectedRating>=3){
+   document.getElementById("googleBox").classList.remove("hidden");
+ }else{
+   document.getElementById("lowBox").classList.remove("hidden");
+ }
+}
+
+function copyAndGo(){
+ const message = document.getElementById("message").value;
+
+ if(GOOGLE_REVIEW_URL === "ここにGoogle口コミURLを入れる"){
+   alert("Google口コミURLがまだ設定されていません。");
+   return;
+ }
+
+ navigator.clipboard.writeText(message).then(()=>{
+   alert("メッセージをコピーしました。口コミ投稿ページへ移動します。");
+   window.location.href = GOOGLE_REVIEW_URL;
+ });
+}
+
+function goGoogle(){
+ if(GOOGLE_REVIEW_URL === "ここにGoogle口コミURLを入れる"){
+   alert("Google口コミURLがまだ設定されていません。");
+   return;
+ }
+
+ window.location.href = GOOGLE_REVIEW_URL;
+}
+</script>
+
+</body>
+</html>
